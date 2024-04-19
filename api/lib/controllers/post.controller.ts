@@ -15,7 +15,10 @@ class PostController implements Controller {
     private initializeRoutes() {
         this.router.get(`${this.path}/posts`, this.getAllPosts);
         this.router.get(`${this.path}/post/:id`, this.getOnePost);
+
         this.router.post(`${this.path}/post`, this.addPost);
+
+        this.router.delete(`${this.path}/posts`, this.deleteAllPosts);
     }
 
     private getAllPosts = async (request: Request, response: Response, next: NextFunction)=> {
@@ -31,6 +34,12 @@ class PostController implements Controller {
     private addPost = async (request: Request, response: Response, next: NextFunction)=> {
         const newPost = request.body;
         testArr.push(newPost);
+
+        response.status(200);
+    }
+
+    private deleteAllPosts = async (request: Request, response: Response, next: NextFunction)=> {
+        testArr = [];
 
         response.status(200);
     }
