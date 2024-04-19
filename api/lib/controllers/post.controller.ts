@@ -19,6 +19,7 @@ class PostController implements Controller {
         this.router.post(`${this.path}/post`, this.addPost);
 
         this.router.delete(`${this.path}/posts`, this.deleteAllPosts);
+        this.router.delete(`${this.path}/post/:id`, this.deleteOnePost);
     }
 
     private getAllPosts = async (request: Request, response: Response, next: NextFunction)=> {
@@ -40,6 +41,15 @@ class PostController implements Controller {
 
     private deleteAllPosts = async (request: Request, response: Response, next: NextFunction)=> {
         testArr = [];
+
+        response.status(200);
+    }
+
+    private deleteOnePost = async (request: Request, response: Response, next: NextFunction)=> {
+        const { id } = request.params;
+        const postId: number = parseInt(id);
+
+        testArr.splice(postId,1);
 
         response.status(200);
     }
