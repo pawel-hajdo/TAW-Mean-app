@@ -17,6 +17,7 @@ class PostController implements Controller {
         this.router.get(`${this.path}/post/:id`, this.getOnePost);
 
         this.router.post(`${this.path}/post`, this.addPost);
+        this.router.post(`${this.path}/post/:num`, this.getXPosts);
 
         this.router.delete(`${this.path}/posts`, this.deleteAllPosts);
         this.router.delete(`${this.path}/post/:id`, this.deleteOnePost);
@@ -52,6 +53,13 @@ class PostController implements Controller {
         testArr.splice(postId,1);
 
         response.status(200);
+    }
+
+    private getXPosts = async (request: Request, response: Response, next: NextFunction)=> {
+        const { num } = request.params;
+        const numberOfPosts: number = parseInt(num);
+
+        response.status(200).json(testArr.slice(0,numberOfPosts))
     }
 }
 
