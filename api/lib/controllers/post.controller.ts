@@ -1,6 +1,7 @@
 import Controller from "../interfaces/controller.interface";
 import {Request, Response, NextFunction, Router} from "express";
 import {parse} from "graphql/language";
+import {checkPostCount} from "../middlewares/checkPostCount.middleware";
 
 let testArr = [4,5,6,3,5,3,7,5,13,5,6,4,3,6,3,6];
 
@@ -17,7 +18,7 @@ class PostController implements Controller {
         this.router.get(`${this.path}/post/:id`, this.getOnePost);
 
         this.router.post(`${this.path}/post`, this.addPost);
-        this.router.post(`${this.path}/post/:num`, this.getXPosts);
+        this.router.post(`${this.path}/post/:num`, checkPostCount, this.getXPosts);
 
         this.router.delete(`${this.path}/posts`, this.deleteAllPosts);
         this.router.delete(`${this.path}/post/:id`, this.deleteOnePost);
