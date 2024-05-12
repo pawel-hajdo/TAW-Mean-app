@@ -20,12 +20,24 @@ class UserService {
     public async getByEmailOrName(name: string){
         try {
             const result = await UserSchema.findOne({$or: [{email:name}, {name: name}]});
+            console.log(result)
             if(result){
                 return result;
             }
         } catch (error) {
             console.error('Wystąpił błąd podczas pobierania danych:', error);
             throw new Error('Wystąpił błąd podczas pobierania danych');
+        }
+    }
+
+    public async getAll() {
+        try {
+            return await UserSchema.find({}).then((users)=> {
+                return users;
+            });
+        } catch (error) {
+            console.error("Failed fetching all users");
+            throw new Error("failed fetching all users");
         }
     }
 }

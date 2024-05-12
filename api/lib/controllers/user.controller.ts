@@ -21,6 +21,7 @@ class UserController implements Controller {
         this.router.post(`${this.path}/create`, this.createNewOrUpdate);
         this.router.post(`${this.path}/auth`, this.authenticate);
         this.router.delete(`${this.path}/logout/:userId`, auth,  this.removeHashSession);
+        this.router.get(`${this.path}/all`, this.getAllUsers);
     }
 
     private createNewOrUpdate = async (request: Request, response: Response, next: NextFunction) => {
@@ -47,10 +48,7 @@ class UserController implements Controller {
 
         try {
             const user = await this.userService.getByEmailOrName(login);
-            if(!user){
-                response.status(401).json({error: 'Unauthorized'});
-            }
-            await this.passwordService.authorize(user.id, await this.passwordService.hashPassword(password));
+            await this.passwordService.authorize(user?.id, await this.passwordService.hashPassword(password));
             const token = await this.tokenService.create(user);
             response.status(200).json(this.tokenService.getToken(token));
         } catch (error) {
@@ -68,6 +66,17 @@ class UserController implements Controller {
         } catch (error) {
             console.error(`Validation Error: ${error.message}`);
             response.status(401).json({error: 'Unauthorized'});
+        }
+    }
+
+    private getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const users = await this.userService.getAll();
+
+            res.status(200).json({users: users});
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).json({message: "Error occured"});
         }
     }
 }
