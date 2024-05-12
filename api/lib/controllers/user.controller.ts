@@ -1,10 +1,10 @@
 import Controller from '../interfaces/controller.interface';
 import {Request, Response, NextFunction, Router} from 'express';
-//import {admin} from '../middlewares/admin.middleware';
 import UserService from "../modules/services/user.service";
 import PasswordService from "../modules/services/password.service";
 import TokenService from "../modules/services/token.service";
 import {auth} from "../middlewares/auth.middleware";
+import {admin} from "../middlewares/admin.middleware";
 
 class UserController implements Controller {
     public path = '/api/user';
@@ -21,7 +21,7 @@ class UserController implements Controller {
         this.router.post(`${this.path}/create`, this.createNewOrUpdate);
         this.router.post(`${this.path}/auth`, this.authenticate);
         this.router.delete(`${this.path}/logout/:userId`, auth,  this.removeHashSession);
-        this.router.get(`${this.path}/all`, this.getAllUsers);
+        this.router.get(`${this.path}/all`, admin, this.getAllUsers);
     }
 
     private createNewOrUpdate = async (request: Request, response: Response, next: NextFunction) => {
