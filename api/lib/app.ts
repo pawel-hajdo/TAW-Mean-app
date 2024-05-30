@@ -9,7 +9,9 @@ class App {
     public app: express.Application;
 
     constructor(controllers: Controller[]) {
+        let cors = require('cors');
         this.app = express();
+        this.app.use(cors());
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
         this.connectToDatabase();

@@ -54,6 +54,42 @@ class TokenService {
             throw new Error('Error while removing token');
         }
     }
+
+    public async removeByTokenId(tokenId: any) {
+        try {
+            const result = await TokenSchema.deleteOne({ _id: tokenId });
+            if (result.deletedCount === 0) {
+                throw new Error('Wystąpił błąd podczas usuwania danych');
+            }
+            return result;
+        } catch (error) {
+            console.error('Error while removing token:', error);
+            throw new Error('Error while removing token');
+        }
+    }
+
+    public async getAll() {
+        return await TokenSchema.find({})
+            .then((tokens) => {
+                return tokens;
+            }).catch((err) => {
+                console.error('Error while fetching token:', err);
+                throw new Error('Error while fetching token');
+            });
+    }
+
+    public async isExpired(token: any) : Promise<boolean>{
+        const tokenData = jwt.decode(token.value);
+        if(typeof(tokenData) != 'object') {
+            return false;
+        }
+
+        const exp = tokenData.exp;
+
+        const now = Date.now();
+
+        return now >= exp;
+    }
 }
 
 export default TokenService;
