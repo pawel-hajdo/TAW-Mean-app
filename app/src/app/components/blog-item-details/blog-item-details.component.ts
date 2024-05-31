@@ -12,13 +12,21 @@ import {DataService} from "../../services/data.service";
   styleUrl: './blog-item-details.component.scss'
 })
 export class BlogItemDetailsComponent {
-  public image: string = 'http://osnews.pl/wp-content/uploads/2016/06/it-grafika.jpg';
-  public text: string = 'Tytuł';
+  public image: string = '';
+  public text: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private service: DataService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(`BlogItemDetailsComponent initialized with ID: ${id}`);
+    let id: string = '';
+    this.route.paramMap
+      .subscribe((params: any) => {
+        id = params.get('id');
+      });
+
+    this.service.getById(id).subscribe((res: any) => {
+      this.image = res['image'];
+      this.text = res['text'];
+    })
   }
 }

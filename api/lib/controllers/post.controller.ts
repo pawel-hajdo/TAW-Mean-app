@@ -36,9 +36,18 @@ class PostController implements Controller {
 
     private getPostById = async (request: Request, response: Response, next: NextFunction)=> {
         const { id } = request.params;
-        const allData = await this.dataService.query({_id: id});
-        response.status(200).json(allData);
+
+        console.log(id)
+
+        try {
+            const post = await this.dataService.getPostById(id);
+            response.status(200).json(post);
+        } catch (error) {
+            console.error('Failed pulling posts:', error);
+            response.status(500).send('Internal server error');
+        }
     }
+
 
     private addPost = async (request: Request, response: Response, next: NextFunction)=> {
         const {title, text, image} = request.body;

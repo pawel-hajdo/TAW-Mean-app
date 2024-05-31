@@ -11,4 +11,5 @@ import {RouterModule} from "@angular/router";
 })
 export class BlogItemTextComponent {
   @Input() text?: string;
+  @Input() id?: number;
 }
