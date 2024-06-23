@@ -13,12 +13,12 @@
         <li *ngIf="authService.isLoggedIn()" class="nav-item">
           <a class="nav-link" href="#" [routerLink]="['/blog']">Blog</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Add post</a>
+        <li *ngIf="authService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/add-post']">Add post</a>
         </li>
       </ul>
       <div class="d-flex">
-        <div class="d-flex" *ngIf="!authService.isLoggedIn()">
+        <div class="d-flex gap-2" *ngIf="!authService.isLoggedIn()">
           <a class="nav-link" href="#" [routerLink]="['/login']">Login</a>
           <a class="nav-link" href="#" [routerLink]="['/signup']">SignUp</a>
         </div>

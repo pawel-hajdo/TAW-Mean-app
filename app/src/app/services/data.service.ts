@@ -20,4 +20,7 @@ export class DataService {
     return this.http.get(this.url + '/post/' +id);
   }
 
+  public addPost(post: any){
+    return this.http.post(this.url + '/post', post);
+  }
 }

@@ -13,10 +13,20 @@ export const routes: Routes = [
   },
   {
     path: 'blog/details/:id',
-    loadComponent: () => import('./components/blog-item-details/blog-item-details.component').then(m => m.BlogItemDetailsComponent)
+    loadComponent: () => import('./components/blog-item-details/blog-item-details.component').then(m => m.BlogItemDetailsComponent),
+    canActivate: [authGuard]
   },
   {
     path: 'login',
     loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent)
+  },
+  {
+    path: 'add-post',
+    loadComponent: () => import('./components/add-post/add-post.component').then(m => m.AddPostComponent),
+    canActivate: [authGuard]
   }
 ];

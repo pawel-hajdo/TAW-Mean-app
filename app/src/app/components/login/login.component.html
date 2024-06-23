@@ -1,11 +1,12 @@
 <div class="container">
+  <h1 class="entry-title"><span>Login</span></h1><hr>
   <form action="post" autocomplete="off" method="POST">
-    <div class="input-group">
+    <div class="input-group mb-2">
       <input [(ngModel)]="credentials.login" type="text" class="form-control"
              name="username" placeholder="Nazwa" title="Login">
     </div>
 
-    <div class="input-group">
+    <div class="input-group mb-2">
       <input [(ngModel)]="credentials.password" type="password" class="form-control"
              name="password" placeholder="Hasło" title="Password">
     </div>

@@ -37,12 +37,8 @@ export class AuthService {
 
   logout() {
     const localStorage = this.document.defaultView?.localStorage;
-    return this.http.delete(this.url + '/user/logout/' + this.currentUser.userId)
-      .pipe(
-        map(() => {
-          localStorage?.removeItem('token');
-        })
-      );
+    localStorage?.removeItem('token');
+    return this.http.delete(this.url + '/user/logout/' + this.currentUser.userId);
   }
 
   isLoggedIn() {
