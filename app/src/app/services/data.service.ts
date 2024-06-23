@@ -7,17 +7,17 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DataService {
 
-  private url = 'http://localhost:3100';
+  private url = 'http://localhost:3100/api';
 
   constructor(private http: HttpClient) {
   }
 
   public getAll() {
-    return this.http.get(this.url + '/api/posts');
+    return this.http.get(this.url + '/posts');
   }
 
   public getById(id: string){
-    return this.http.get(this.url + '/api/post/' +id);
+    return this.http.get(this.url + '/post/' +id);
   }
 
 }
