@@ -1,4 +1,16 @@
-<img [src]="image" >
-<p>
-  {{ text }}
-</p>
+<div class="blog-post-container container w-50 mt-4 p-4">
+  <div class="d-flex flex-column align-items-center">
+    <div class="d-flex justify-content-between w-100">
+      <button (click)="goBack()" class="back-button">Powrót</button>
+      <button *ngIf="authService.isAdmin" (click)="confirmDelete()" class="delete-button">Usuń post</button>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+      <img [src]="image" alt="Blog Post Image" class="blog-post-image"/>
+      <div class="blog-post-content">
+        <p class="blog-post-text">
+          {{ text }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

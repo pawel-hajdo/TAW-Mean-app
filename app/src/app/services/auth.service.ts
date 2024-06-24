@@ -64,4 +64,13 @@ export class AuthService {
     const localStorage = this.document.defaultView?.localStorage;
     return localStorage?.getItem('token');
   }
+
+  isAdmin(): boolean {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const decodedToken = new JwtHelperService().decodeToken(token);
+      return decodedToken.role === 'admin';
+    }
+    return false;
+  }
 }

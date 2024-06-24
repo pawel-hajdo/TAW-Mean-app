@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 class="entry-title"><span>Nowy post</span></h1><hr>
+  <form action="post" autocomplete="off" method="POST">
+    <div class="input-group mb-2">
+      <input [(ngModel)]="postData.title" type="text" class="form-control"
+             name="title" placeholder="Tytuł" title="Tytuł">
+    </div>
+    <div class="input-group mb-2">
+      <textarea [(ngModel)]="postData.text" class="form-control"
+             name="text" placeholder="Treść posta" title="Treść posta" rows="4">
+      </textarea>
+    </div>
+    <div class="input-group mb-2">
+      <input [(ngModel)]="postData.image" type="text" class="form-control"
+             name="image" placeholder="Obraz" title="Obraz">
+    </div>
+    <button (click)="addPost()" class="btn btn-primary" type="submit" title="Przycisk dodaj post">
+      Dodaj post
+    </button>
+  </form>
+</div>

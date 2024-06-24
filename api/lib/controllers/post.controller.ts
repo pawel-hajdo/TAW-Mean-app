@@ -76,10 +76,16 @@ class PostController implements Controller {
         response.status(200);
     }
 
-    private deletePostById = async (request: Request, response: Response, next: NextFunction)=> {
+    private deletePostById = async (request: Request, response: Response, next: NextFunction) => {
         const { id } = request.params;
-        await this.dataService.deleteData({_id: id});
-        response.sendStatus(200);
+
+        try {
+            await this.dataService.deleteData({ _id: id });
+            response.status(200).json({ message: 'Post deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            response.status(500).json({ error: 'Internal Server Error' });
+        }
     };
 
     private getXPosts = async (request: Request, response: Response, next: NextFunction) => {

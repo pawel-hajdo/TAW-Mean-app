@@ -23,4 +23,8 @@ export class DataService {
   public addPost(post: any){
     return this.http.post(this.url + '/post', post);
   }
+
+  public deleteById(id: string){
+    return this.http.delete(this.url + '/post/' + id);
+  }
 }
