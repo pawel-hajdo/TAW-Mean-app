@@ -39,6 +39,16 @@ class DataService {
             throw new Error('Error occurred while retrieving all posts');
         }
     }
+
+    public async getPostById(postId: any) {
+        try{
+            const result = await PostModel.findOne({_id: postId})
+            return result;
+        } catch (error) {
+            console.error("Error occured while retrieving post with id: "+ postId);
+            throw new Error("Error occured while retrieving post with id: "+ postId);
+        }
+    }
 }
 
 export default DataService;

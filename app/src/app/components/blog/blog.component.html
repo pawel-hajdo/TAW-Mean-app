@@ -1,0 +1,7 @@
+<div class="d-flex flex-wrap justify-content-evenly">
+  <div *ngFor="let item of items$ | filter:filterText">
+    <blog-item [image]="item.image" [text]="item.text" [id]="item._id" [title]="item.title">
+    </blog-item>
+  </div>
+</div>
+

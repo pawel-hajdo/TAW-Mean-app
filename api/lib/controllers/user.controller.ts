@@ -62,13 +62,16 @@ class UserController implements Controller {
 
     private removeHashSession = async (request: Request, response: Response, next: NextFunction) => {
         const {userId} = request.params;
-
         try {
             const result = await this.tokenService.remove(userId);
-            response.status(200).send(result);
+            if (!response.headersSent) {
+                response.status(200).send(result);
+            }
         } catch (error) {
-            console.error(`Validation Error: ${error.message}`);
-            response.status(401).json({error: 'Unauthorized'});
+            console.error(`Error while removing token: ${error.message}`);
+            if (!response.headersSent) {
+                response.status(500).json({ error: 'Error while removing token' });
+            }
         }
     }
 
